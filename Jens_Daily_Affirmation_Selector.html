@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0D2A20">
+  <meta name="description" content="Jen's randomized deck of 88 cheese-fueled daily affirmations.">
+  <title>Jen's Daily Affirmations</title>
+  <style>
+    :root {
+      --green: #183B2B;
+      --deep-green: #0D2A20;
+      --gold: #FFB612;
+      --cream: #FFF4D6;
+      --charcoal: #242729;
+      --red: #B8352E;
+      --white: #FFFDF7;
+      --ink: #202525;
+      --rind: #E79A00;
+      --hole: #D89000;
+      --shadow: 0 26px 70px rgba(0, 0, 0, .34);
+      --body-font: "Arial Narrow", "Helvetica Neue Condensed", "Roboto Condensed", "Liberation Sans Narrow", Arial, sans-serif;
+      --ui-font: "DejaVu Sans", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { min-height: 100%; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--white);
+      font-family: var(--ui-font);
+      background:
+        radial-gradient(circle at 14% 18%, rgba(255, 182, 18, .12) 0 2px, transparent 3px),
+        radial-gradient(circle at 83% 76%, rgba(255, 182, 18, .08) 0 2px, transparent 3px),
+        linear-gradient(145deg, #071b14 0%, var(--deep-green) 52%, #102f24 100%);
+      background-size: 90px 90px, 120px 120px, auto;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(110deg, transparent 0 48%, rgba(255,255,255,.02) 49% 50%, transparent 51% 100%);
+    }
+
+    .app {
+      width: min(920px, 100%);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: clamp(24px, 5vw, 56px) clamp(16px, 4vw, 32px) 36px;
+      display: grid;
+      align-content: center;
+      gap: clamp(18px, 3vw, 30px);
+    }
+
+    .masthead {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .eyebrow {
+      margin: 0 0 7px;
+      color: var(--gold);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--body-font);
+      font-size: clamp(2rem, 7vw, 4.8rem);
+      font-stretch: condensed;
+      font-weight: 900;
+      letter-spacing: -.035em;
+      line-height: .88;
+      text-transform: uppercase;
+    }
+
+    .deck-count {
+      flex: 0 0 auto;
+      padding: 9px 12px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 999px;
+      color: rgba(255,255,255,.78);
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .card {
+      --card-bg: var(--green);
+      --card-fg: var(--white);
+      --card-accent: var(--gold);
+      position: relative;
+      isolation: isolate;
+      width: 100%;
+      min-height: clamp(350px, 58vw, 475px);
+      padding: clamp(28px, 5vw, 44px) clamp(26px, 6vw, 58px) 58px;
+      overflow: hidden;
+      color: var(--card-fg);
+      background: var(--card-bg);
+      border-radius: 4px;
+      box-shadow: var(--shadow);
+      transition: background-color .28s ease, color .28s ease, transform .18s ease;
+    }
+
+    .card.reveal { animation: reveal .34s cubic-bezier(.2,.85,.32,1); }
+
+    @keyframes reveal {
+      0% { opacity: .25; transform: translateY(8px) scale(.985); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card, .card.reveal { animation: none; transition: none; }
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0 auto 0 0;
+      width: 12px;
+      background: var(--card-accent);
+    }
+
+    .pattern {
+      position: absolute;
+      z-index: -2;
+      inset: 0;
+      opacity: .085;
+      background-image: var(--pattern);
+      background-size: 92px 76px;
+      background-position: 18px 18px;
+    }
+
+    .pattern-spark {
+      --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath fill='%23FFFDF7' d='M30 15l2.6 10.4L40 18l-5.4 9.4L47 30l-12.4 2.6L40 42l-7.4-7.4L30 45l-2.6-10.4L20 42l5.4-9.4L13 30l12.4-2.6L20 18l7.4 7.4z'/%3E%3C/svg%3E");
+    }
+
+    .pattern-paw {
+      --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='%23FFFDF7'%3E%3Cellipse cx='32' cy='38' rx='10' ry='8'/%3E%3Ccircle cx='20' cy='28' r='4'/%3E%3Ccircle cx='28' cy='22' r='4'/%3E%3Ccircle cx='38' cy='22' r='4'/%3E%3Ccircle cx='46' cy='29' r='4'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .pattern-football {
+      --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='68' viewBox='0 0 68 68'%3E%3Cg fill='none' stroke='%23FFFDF7' stroke-width='2'%3E%3Cpath d='M16 34c7-13 29-13 36 0-7 13-29 13-36 0z'/%3E%3Cpath d='M28 34h12M32 30v8M36 30v8'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .pattern-rings {
+      --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23FFFDF7' stroke-width='3'%3E%3Ccircle cx='27' cy='32' r='9'/%3E%3Ccircle cx='38' cy='32' r='9'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .pattern-bubbles {
+      --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23FFFDF7' stroke-width='2'%3E%3Ccircle cx='21' cy='42' r='6'/%3E%3Ccircle cx='36' cy='29' r='9'/%3E%3Ccircle cx='48' cy='17' r='4'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .pattern-stop {
+      --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cpath d='M25 17h14l8 8v14l-8 8H25l-8-8V25z' fill='none' stroke='%23FFFDF7' stroke-width='2'/%3E%3C/svg%3E");
+    }
+
+    .card.packers { --card-bg: var(--gold); --card-fg: var(--deep-green); --card-accent: var(--green); }
+    .card.rigby { --card-bg: var(--green); --card-fg: var(--white); --card-accent: var(--gold); }
+    .card.palette-0 { --card-bg: var(--cream); --card-fg: var(--ink); --card-accent: var(--red); }
+    .card.palette-1 { --card-bg: var(--charcoal); --card-fg: var(--white); --card-accent: var(--gold); }
+    .card.palette-2 { --card-bg: var(--green); --card-fg: var(--white); --card-accent: var(--gold); }
+    .card.palette-3 { --card-bg: var(--white); --card-fg: var(--ink); --card-accent: var(--green); }
+
+    .card.packers .pattern,
+    .card.palette-0 .pattern,
+    .card.palette-3 .pattern { filter: invert(1); }
+
+    .card-top { position: relative; z-index: 2; width: calc(100% - 88px); }
+
+    .card-kicker {
+      font-size: clamp(.66rem, 1.5vw, .82rem);
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .category {
+      margin-top: 5px;
+      color: var(--card-accent);
+      font-size: clamp(.62rem, 1.4vw, .78rem);
+      font-weight: 900;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .affirmation-wrap {
+      min-height: clamp(220px, 38vw, 325px);
+      padding: 28px 0 12px;
+      display: grid;
+      align-items: center;
+    }
+
+    .affirmation {
+      margin: 0;
+      max-width: 100%;
+      font-family: var(--body-font);
+      font-size: clamp(1.42rem, 4vw, 2.5rem);
+      font-stretch: condensed;
+      font-weight: 900;
+      letter-spacing: -.025em;
+      line-height: 1.06;
+      text-wrap: pretty;
+    }
+
+    .card.compact .affirmation { font-size: clamp(1.19rem, 3.35vw, 2rem); line-height: 1.08; }
+    .card.xcompact .affirmation { font-size: clamp(1.04rem, 2.8vw, 1.7rem); line-height: 1.1; }
+    .card.micro .affirmation { font-size: clamp(.91rem, 2.35vw, 1.43rem); line-height: 1.12; }
+
+    .card-footer {
+      position: absolute;
+      z-index: 2;
+      right: clamp(26px, 6vw, 58px);
+      bottom: 22px;
+      left: clamp(26px, 6vw, 58px);
+      padding-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      border-top: 1px solid color-mix(in srgb, var(--card-fg) 28%, transparent);
+      font-size: clamp(.58rem, 1.3vw, .72rem);
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .card-footer strong { font-weight: 900; }
+
+    .mascot {
+      position: absolute;
+      z-index: 3;
+      top: clamp(22px, 4vw, 34px);
+      right: clamp(24px, 5vw, 42px);
+      width: clamp(62px, 12vw, 94px);
+      height: auto;
+      filter: drop-shadow(4px 5px 0 rgba(0,0,0,.14));
+    }
+
+    .mascot .outline, .mascot .face, .mascot .arm { stroke: var(--deep-green); }
+    .mascot .accent { stroke: var(--card-accent); }
+
+    .controls { display: grid; justify-items: center; gap: 12px; }
+
+    button {
+      min-width: min(100%, 320px);
+      min-height: 58px;
+      padding: 17px 30px;
+      border: 0;
+      border-radius: 3px;
+      color: var(--deep-green);
+      background: var(--gold);
+      box-shadow: 0 8px 0 #bb7600, 0 16px 28px rgba(0,0,0,.28);
+      cursor: pointer;
+      font-family: var(--ui-font);
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+    }
+
+    button:hover { filter: brightness(1.06); transform: translateY(-2px); box-shadow: 0 10px 0 #bb7600, 0 18px 30px rgba(0,0,0,.3); }
+    button:active { transform: translateY(6px); box-shadow: 0 2px 0 #bb7600, 0 7px 14px rgba(0,0,0,.26); }
+    button:focus-visible { outline: 4px solid var(--white); outline-offset: 5px; }
+
+    .remaining {
+      min-height: 1.2em;
+      margin: 0;
+      color: rgba(255,255,255,.72);
+      font-size: .78rem;
+      letter-spacing: .04em;
+      text-align: center;
+    }
+
+    .noscript {
+      max-width: 680px;
+      margin: 18px auto;
+      padding: 14px;
+      color: #2d1700;
+      background: var(--gold);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    @media (max-width: 620px) {
+      .app { align-content: start; }
+      .masthead { align-items: start; }
+      .deck-count { margin-top: 2px; font-size: .65rem; }
+      .card { min-height: 440px; padding-right: 28px; padding-left: 32px; }
+      .affirmation-wrap { min-height: 320px; padding-top: 24px; }
+      .card-footer { right: 28px; left: 32px; }
+      .card-footer strong { display: none; }
+      .mascot { right: 24px; }
+    }
+
+    @media (max-width: 390px) {
+      h1 { font-size: 2.15rem; }
+      .deck-count { display: none; }
+      .card { min-height: 455px; }
+      .card-top { width: calc(100% - 70px); }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="masthead">
+      <div>
+        <p class="eyebrow">Cheese-Fueled Resilience</p>
+        <h1>Jen's Daily<br>Affirmations</h1>
+      </div>
+      <div class="deck-count" aria-label="88 affirmation cards">88-card deck</div>
+    </header>
+
+    <article class="card palette-2" id="affirmationCard" aria-live="polite" aria-atomic="true">
+      <div class="pattern pattern-spark" id="pattern" aria-hidden="true"></div>
+
+      <svg class="mascot" viewBox="0 0 126 96" role="img" aria-label="An angry wedge of cheese raising one defiant finger">
+        <path d="M10 79h81L72 20 17 36z" fill="#FFB612" class="outline" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M10 79h81l-5-16H13z" fill="#E79A00"/>
+        <circle cx="37" cy="49" r="6" fill="#D89000"/>
+        <circle cx="64" cy="38" r="5" fill="#D89000"/>
+        <circle cx="74" cy="61" r="4" fill="#D89000"/>
+        <path d="M35 55l12-4M58 51l12 5" fill="none" class="face" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="43" cy="59" r="3.5" fill="#0D2A20"/>
+        <circle cx="62" cy="59" r="3.5" fill="#0D2A20"/>
+        <path d="M44 70q10-8 20 0" fill="none" class="face" stroke-width="4" stroke-linecap="round"/>
+        <path d="M80 58l19-12" fill="none" class="arm" stroke-width="7" stroke-linecap="round"/>
+        <rect x="95" y="37" width="23" height="17" rx="6" fill="#FFB612" class="outline" stroke-width="3"/>
+        <rect x="104" y="14" width="8" height="29" rx="4" fill="#FFB612" class="outline" stroke-width="3"/>
+        <path d="M97 56l20-2" fill="none" class="accent" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+
+      <div class="card-top">
+        <div class="card-kicker">Jen's Daily Affirmation</div>
+        <div class="category" id="category">Ready When You Are</div>
+      </div>
+
+      <div class="affirmation-wrap">
+        <p class="affirmation" id="affirmation">Press the button. Agent Lynch is listening.</p>
+      </div>
+
+      <footer class="card-footer">
+        <span id="cardNumber">88 cards waiting</span>
+        <strong>Cheese-Fueled Resilience</strong>
+      </footer>
+    </article>
+
+    <section class="controls" aria-label="Affirmation controls">
+      <button id="selectButton" type="button">Select Affirmation</button>
+      <p class="remaining" id="remaining">Every card will appear once before the deck repeats.</p>
+    </section>
+
+    <noscript><div class="noscript">JavaScript must be enabled to select an affirmation.</div></noscript>
+  </main>
+
+  <script>
+    "use strict";
+
+    const affirmations = [
+  {
+    "set": "A",
+    "number": 1,
+    "text": "I am Jen, I am in my 40s, and I have survived this long without strangling anyone, which deserves a fucking medal.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "A",
+    "number": 2,
+    "text": "Rigby is the only person who truly understands me, and I'm okay with that. Woof, motherfucker.",
+    "category": "RIGBY > PEOPLE"
+  },
+  {
+    "set": "A",
+    "number": 3,
+    "text": "Other people are idiots. I am not other people. Therefore, I am not an idiot. Math checks out, bitches. Transitive property for the win. Suck on that, Mr. West.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "A",
+    "number": 4,
+    "text": "The Green Bay Packers have disappointed me less than most humans I know, and that says everything. Hell, even the Lions.",
+    "category": "PACKERS THERAPY"
+  },
+  {
+    "set": "A",
+    "number": 5,
+    "text": "Jesse married me knowing full well I'm a sarcastic queen, so any complaints are legally invalid...even if warranted.",
+    "category": "MARRIAGE LAW"
+  },
+  {
+    "set": "A",
+    "number": 6,
+    "text": "I don't have the energy to pretend you're interesting. Rigby needs her walk.",
+    "category": "RIGBY > PEOPLE"
+  },
+  {
+    "set": "A",
+    "number": 7,
+    "text": "My patience is like the Packers' defense: occasionally strong, but mostly just trying to survive the onslaught. Don't be in front of me when the bitchiness dam breaks.",
+    "category": "PACKERS THERAPY"
+  },
+  {
+    "set": "A",
+    "number": 8,
+    "text": "I am allowed to set boundaries. Mostly because I'm tired of your bullshit, but let's call it \"self-care\" when out in public, shall we?",
+    "category": "BOUNDARY SETTING"
+  },
+  {
+    "set": "A",
+    "number": 9,
+    "text": "Not everyone deserves my attention, and statistically, you more than likely don't. Don't let anyone ever say you weren't significant...because statistically...you are. But you still don't deserve my attention, fucknut.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "A",
+    "number": 10,
+    "text": "I am surrounded by incompetence, yet here I am, thriving like a bitch in heat.",
+    "category": "RIGBY > PEOPLE"
+  },
+  {
+    "set": "A",
+    "number": 11,
+    "text": "My dog Rigby looks at me with more intelligence than most people I meet at grocery stores.",
+    "category": "RIGBY > PEOPLE"
+  },
+  {
+    "set": "A",
+    "number": 12,
+    "text": "I choose peace, but if peace isn't available, I choose reminding myself that you, sir, may fuck off in my head.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "A",
+    "number": 13,
+    "text": "The Packers may break my heart, but at least they don't ask me stupid questions.",
+    "category": "PACKERS THERAPY"
+  },
+  {
+    "set": "A",
+    "number": 14,
+    "text": "I am Jen. I have survived four decades of other people's nonsense. Cancer. And Mike as my younger, wonderful, awesome little sibling. I am basically a superhero with better (greyer?) hair.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "A",
+    "number": 15,
+    "text": "Jesse knows when to bring me Diet Coke. This is why our marriage works. That and selective hearing...huh?",
+    "category": "MARRIAGE LAW"
+  },
+  {
+    "set": "A",
+    "number": 16,
+    "text": "I radiate uneasiness and mild irritation. It's called being a grown-ass woman. Figure this shit out already.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "A",
+    "number": 17,
+    "text": "Some people bring joy wherever they go. I bring sarcasm. You're welcome. And you bring me joy. But when you leave.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "A",
+    "number": 18,
+    "text": "I am too old for this shit, and yet here I am, dealing with this shit like a motherfucker. That's called resilience, my little jingletits.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "A",
+    "number": 19,
+    "text": "Rigby doesn't judge me for my life choices. Rigby is a good girl. You are not Rigby. Also, why the fuck are you smelling people's assholes when you meet them?",
+    "category": "RIGBY > PEOPLE"
+  },
+  {
+    "set": "A",
+    "number": 20,
+    "text": "I will not let idiots ruin my day. That's what the Packers are for.",
+    "category": "PACKERS THERAPY"
+  },
+  {
+    "set": "A",
+    "number": 21,
+    "text": "My 40s have taught me that \"no\" is a complete sentence, and \"fuck no\" is even more completer.",
+    "category": "BOUNDARY SETTING"
+  },
+  {
+    "set": "A",
+    "number": 22,
+    "text": "I am grateful for my blessings: a husband who gets me, a dog who loves me, and the ability to tune out morons. No wonder I miss half of my brother's phone calls.",
+    "category": "RIGBY > PEOPLE"
+  },
+  {
+    "set": "A",
+    "number": 23,
+    "text": "Other people's stupidity is not my emergency. Unless it's fucking up my life. Then...your ass is grass, bitch. Hehehe...grass.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "A",
+    "number": 24,
+    "text": "I walk Rigby to avoid people. This is healthy coping. Don't @ me.",
+    "category": "RIGBY > PEOPLE"
+  },
+  {
+    "set": "A",
+    "number": 25,
+    "text": "I am Jen, hear me roar, or more likely, hear me sigh heavily and roll my eyes at your nonsense.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "A",
+    "number": 26,
+    "text": "The universe sends me challenges. They call themselves co-workers. I send them sarcasm. I call it \"suggestions.\" We're even.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "A",
+    "number": 27,
+    "text": "I don't need your validation. I have a dog named Rigby and a husband named Jesse, both of whom know when to shut up. I'm good.",
+    "category": "RIGBY > PEOPLE"
+  },
+  {
+    "set": "A",
+    "number": 28,
+    "text": "Green Bay may be a frozen hellscape, but at least the people there understand football, beer, brats, and cheese. Unlike the idiots I deal with daily. Mmmmmm...cheese.",
+    "category": "PACKERS THERAPY"
+  },
+  {
+    "set": "A",
+    "number": 29,
+    "text": "I am strong. I am capable. I am one asshole's passive-aggressive bullshit comment away from losing my absolute motherfucking ape-shit on them, so that's nice. At least I have that going for me.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "A",
+    "number": 30,
+    "text": "Today I will be the best version of myself: slightly tired, moderately annoyed, and absolutely not taking anyone's bullshit. Go Pack Go, fuck the haters, and where's my cheese.",
+    "category": "PACKERS THERAPY"
+  },
+  {
+    "set": "B",
+    "number": 1,
+    "text": "I am Jen, I'm 40-fucking-something, and if you think I'm putting up with your shit today, you must be new here.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "B",
+    "number": 2,
+    "text": "Rigby is the only creature on this godforsaken planet who gets my unconditional love. The rest of you fuckers are on a point system, and you're all in the negative.",
+    "category": "RIGBY > PEOPLE"
+  },
+  {
+    "set": "B",
+    "number": 3,
+    "text": "The Green Bay Packers have fucked me over more times than I can count, but at least they never asked me to help them move on a Saturday or watch their Satanic cat.",
+    "category": "PACKERS THERAPY"
+  },
+  {
+    "set": "B",
+    "number": 4,
+    "text": "I woke up like this: tired, judgmental, and wondering why the hell you're talking to me.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "B",
+    "number": 5,
+    "text": "Jesse has learned that \"I'm fine\" means \"prepare to be a part of the witness protection program,\" and that's why we get along.",
+    "category": "MARRIAGE LAW"
+  },
+  {
+    "set": "B",
+    "number": 6,
+    "text": "I'm not saying everyone I meet is a moron, but if stupidity were a currency, I'd be surrounded by billionaires.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "B",
+    "number": 7,
+    "text": "My patience left my body sometime in my 30s, and it's not coming back. Adjust your expectations accordingly, assholes.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "B",
+    "number": 8,
+    "text": "I don't have resting bitch face. I have \"you're wasting my time and I have a dog to pet\" face. There's a difference.",
+    "category": "RIGBY > PEOPLE"
+  },
+  {
+    "set": "B",
+    "number": 9,
+    "text": "My brother may be ridiculous, but at least he doesn't try to explain Bitcoin to me at parties.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "B",
+    "number": 10,
+    "text": "I am Jen, hear me roar, or just watch me stare blankly while I imagine you getting hit by a bus. Same energy.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "B",
+    "number": 11,
+    "text": "Rigby spreads less shit than most people I work with, and that's why she's my favorite. Now, where's my dried bull peen?",
+    "category": "RIGBY > PEOPLE"
+  },
+  {
+    "set": "B",
+    "number": 12,
+    "text": "I used to care what people thought. Then I turned 50 and realized most people can't even parallel park properly, so why would I value their opinions? Oh wait...about that parallel parking bullshit. Fuck that noise. Nose in, hit the gas, and say a prayer, bitches.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "B",
+    "number": 13,
+    "text": "Jesse knows that when I say \"do whatever you want,\" what I actually mean is \"choose correctly or suffer the consequences.\" That goes without saying, right?",
+    "category": "MARRIAGE LAW"
+  },
+  {
+    "set": "B",
+    "number": 14,
+    "text": "I'm not antisocial. I'm just pro-leaving me the fuck alone so I can watch what I want in peace.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "B",
+    "number": 15,
+    "text": "Green Bay fans are loyal to a fault, which is more than I can say for any of you flaky assholes. And I'm not just talking dandruff. But, if we're on the topic of Selsun Blue...Dr. Flakenstein's monster called and wants his shampoo back.",
+    "category": "PACKERS THERAPY"
+  },
+  {
+    "set": "B",
+    "number": 16,
+    "text": "I will not let your incompetence ruin my day. That's what my own bad life choices are for.",
+    "category": "RIGBY > PEOPLE"
+  },
+  {
+    "set": "B",
+    "number": 17,
+    "text": "Some people meditate to find inner peace. I imagine telling people to fuck off, and that works just as well.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "B",
+    "number": 18,
+    "text": "Rigby doesn't care about my flaws. Rigby cares about treats and belly rubs. Rigby has the right idea about life.",
+    "category": "RIGBY > PEOPLE"
+  },
+  {
+    "set": "B",
+    "number": 19,
+    "text": "I'm at that magical age where I can say \"I'm too old for this shit\" AND \"I'm too young to give a fuck.\" It's a great time to be alive.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "B",
+    "number": 20,
+    "text": "The Packers have broken my heart so many times I'm basically immune to emotional pain now. Thanks for the training, Wisconsin.",
+    "category": "PACKERS THERAPY"
+  },
+  {
+    "set": "B",
+    "number": 21,
+    "text": "I don't need your negativity. I have my own, and it's way better quality than your discount-brand bullshit. I made it through Cali High, bitch. That's a masterclass in snark and back-stabbing.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "B",
+    "number": 22,
+    "text": "If you think my standards are high, you should see the list of people I've mentally fired from my life. It's extensive.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "B",
+    "number": 23,
+    "text": "People want to be around me for my personality, which is 20% sarcasm, 20% excess emotional baggage, 40% Diet Coke, and 20% pretending to listen to your lame-ass stories for the 43rd time.",
+    "category": "ESSENTIAL NUTRITION"
+  },
+  {
+    "set": "B",
+    "number": 24,
+    "text": "I'm not bossy. I'm just surrounded by people who can't find their own asses with both hands, a map, and a gallon of colonoscopy prep.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "B",
+    "number": 25,
+    "text": "Every day I wake up and choose violence. Well, at least violent eye rolls at the stupidity surrounding me.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "B",
+    "number": 26,
+    "text": "Rigby is my emotional support animal because humans are emotionally exhausting and dogs don't talk about their \"side hustles.\"",
+    "category": "RIGBY > PEOPLE"
+  },
+  {
+    "set": "B",
+    "number": 27,
+    "text": "I survived my 20s, thrived (?) in my 30s, and now in my 40s, I've reached \"zero tolerance for idiots\" nirvana.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "B",
+    "number": 28,
+    "text": "The Packers didn't make the playoffs? Cool. Neither did your career, and I'm not crying about that either. At least the Packers had merch they made some money on.",
+    "category": "PACKERS THERAPY"
+  },
+  {
+    "set": "B",
+    "number": 29,
+    "text": "I am Jen, I am fabulous, and I will absolutely judge your life choices while pretending to be interested. It's called manners, and I'm a lady, goddammit. A fucking lady.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "B",
+    "number": 30,
+    "text": "Today I will be the hero Gotham needs: a 40-something woman who doesn't have time for your nonsense, loves her dog more than her relatives, and knows that at the end of the day, the only thing that matters is that there's cheese and Diet Coke in the fridge, and I didn't have to kill anyone. You sir, may fuck right off.",
+    "category": "RIGBY > PEOPLE"
+  },
+  {
+    "set": "C",
+    "number": 1,
+    "text": "I am Jen, insurance fraud investigator by day, professional bullshit detector by birthright. Mom tried to teach me that emotions are for the weak, whereas Dad made up for them. And then my boob had to go and develop cancer and SUDDENLY everyone in this family learned to cry. You're welcome for the lesson in being a fucking human, assholes.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "C",
+    "number": 2,
+    "text": "I investigate insurance fraud for a living, which means I spend 40+ hours a week catching liars, and then I have to deal with your mother trying to control my dinner choices. I can't escape the scams...or the SALLLLLLLAD.",
+    "category": "ESSENTIAL NUTRITION"
+  },
+  {
+    "set": "C",
+    "number": 3,
+    "text": "Rigby doesn't care that I have a boob with magical emotion-causing powers. Rigby just wants her walk. Rigby is the only sane one here...but then again, dried bull peen. (shrug)",
+    "category": "RIGBY > PEOPLE"
+  },
+  {
+    "set": "C",
+    "number": 4,
+    "text": "I survived having my little brother hit a skunk in my car, and I'll survive this meeting with you. Both events smell about the same.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "C",
+    "number": 5,
+    "text": "Mike knows that when I say \"Agent Lynch is listening,\" he better shut his mouth about whatever stupid thing he was going to say. Agent Lynch sees all. Agent Lynch judges all.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "C",
+    "number": 6,
+    "text": "I talk to my brother every day because he's the only one who understands that Mom's controlling bullshit is exactly why I moved hours away for college. Northern Michigan: where the N stands for Knowledge and the escape stands for freedom.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "C",
+    "number": 7,
+    "text": "I'm 40-something, I catch criminals who fake dental procedures and dentures (seriously...what the fuck...), and I once smuggled crab Rangoons in my purse into a movie theater like the absolute legend I am. You may bow and kiss my ring, peasant. Or my ass. The choice is yours! #CaptainPlanet",
+    "category": "ESSENTIAL NUTRITION"
+  },
+  {
+    "set": "C",
+    "number": 8,
+    "text": "Mom showed emotions for the first time in 60 years because of my cancer boob. That's power, bitches. Real power...in fact, that's influence.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "C",
+    "number": 9,
+    "text": "I don't trust easily. I investigate fraud professionally, my mom tried to pawn off hot macaroni-tuna-potato-egg mayonnaise bullshit as a meal when I was a kid, and some asshole once told me poached salmon was watermelon. I know the difference...I think.",
+    "category": "ESSENTIAL NUTRITION"
+  },
+  {
+    "set": "C",
+    "number": 10,
+    "text": "The Packers may disappoint me, but at least they don't call me five times a day to ask if I've \"met my water goals.\" Thanks, Mom. I'm 40, not 4.",
+    "category": "PACKERS THERAPY"
+  },
+  {
+    "set": "C",
+    "number": 11,
+    "text": "I am Jen, I survived a skunk-splosion in my car, and I will survive your PowerPoint presentation. Both require ventilation. And possibly caffeine.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "C",
+    "number": 12,
+    "text": "Agent Lynch knows your secrets. Agent Lynch knows you didn't actually read that email. Agent Lynch is disappointed.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "C",
+    "number": 13,
+    "text": "My dog Rigby is named after a Beatles song, not because my family has emotions, but because we have taste. Unlike you, whose lack of taste is matched only by your abundance of stupidity.",
+    "category": "RIGBY > PEOPLE"
+  },
+  {
+    "set": "C",
+    "number": 14,
+    "text": "I went to Northern Michigan University, where the N stands for Knowledge and the student loans stand for \"why the fuck did I think this was a good idea?\"",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "C",
+    "number": 15,
+    "text": "Jesse married into this circus knowing full well that my dad expresses feelings through his eyeballs and my mom expresses love through unsolicited advice. And butter. He's a brave man. Or a stupid one.",
+    "category": "MARRIAGE LAW"
+  },
+  {
+    "set": "C",
+    "number": 16,
+    "text": "I catch people faking dental issues for money, which is ironic because dealing with my family is the real issue around here, and nobody's cutting me a check.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "C",
+    "number": 17,
+    "text": "I have smuggled crab Rangoons in my purse like a goddamn criminal mastermind, and I'd do it again. The movie theater concessions are a rip-off, and I have no shame. But I do have a purse that smells like 20-year-old rancid Chinese food.",
+    "category": "ESSENTIAL NUTRITION"
+  },
+  {
+    "set": "C",
+    "number": 18,
+    "text": "My brother hit a skunk in my first car, and I never let him forget it. Just like I never let anyone forget that my cancer boob made Mom feel things. It's my superpower.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "C",
+    "number": 19,
+    "text": "I am Jen, and I think we both agree that Agent Lynch would be a better family member than most of our actual relatives.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "C",
+    "number": 20,
+    "text": "Poached salmon is not watermelon, you absolute walnut. I know this because I'm a goddamn professional investigator of facts, unlike you, investigator of dingleberries.",
+    "category": "ESSENTIAL NUTRITION"
+  },
+  {
+    "set": "C",
+    "number": 21,
+    "text": "I don't have time for your fake-ass root canal claim, just like I don't have time for Mom's fake-ass \"just checking in\" phone calls that last two hours. Go sit your ass down in the horse trailer, and the doctor will be right in.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "C",
+    "number": 22,
+    "text": "Northern Michigan taught me that knowledge is power, and power is telling people to fuck off while you drink that 17th Diet Coke this morning. Some days, that silver can is the only thing between me and an HR complaint.",
+    "category": "ESSENTIAL NUTRITION"
+  },
+  {
+    "set": "C",
+    "number": 23,
+    "text": "Rigby is my emotional support animal because my mother processed this information for 3.5 seconds when I had cancer before asking what I was making for dinner.",
+    "category": "RIGBY > PEOPLE"
+  },
+  {
+    "set": "C",
+    "number": 24,
+    "text": "I survived the skunk incident of '98, I survived cancer, and I'll survive this conversation with you. Two of those smelled worse than the third. You can guess which.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "C",
+    "number": 25,
+    "text": "Agent Lynch isn't real, but my patience for idiots is also not real, so we're basically the same person. Very Special Investigator, Agent-in-Training McNifferson, at your service.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "C",
+    "number": 26,
+    "text": "I am 40-fucking-something, I catch liars for a living, and I can tell when you're faking interest in my story about the watermelon-salmon confusion. Don't bother.",
+    "category": "ESSENTIAL NUTRITION"
+  },
+  {
+    "set": "C",
+    "number": 27,
+    "text": "My car smelled like skunk, my childhood home smelled like emotional repression, and my mom's house smells like control issues, potpourri, and fucking burnt egg-cracker-potato bullshit. Honestly, I prefer the skunk.",
+    "category": "MILDLY HOSTILE WISDOM"
+  },
+  {
+    "set": "C",
+    "number": 28,
+    "text": "Today I will channel my inner insurance fraud investigator: skeptical, thorough, and absolutely not buying your bullshit. I will also channel my inner crab Rangoon smuggler: sneaky, prepared, and eating better than everyone else in this theater. Go Pack Go, fuck cancer, and Agent Lynch is always watching. More than Santa Claus, that voyeuristic little pervy elf-boy.",
+    "category": "PACKERS THERAPY"
+  }
+];
+
+    const categoryConfig = {
+      "RIGBY > PEOPLE": { className: "rigby", pattern: "paw" },
+      "PACKERS THERAPY": { className: "packers", pattern: "football" },
+      "MARRIAGE LAW": { className: "", pattern: "rings" },
+      "ESSENTIAL NUTRITION": { className: "", pattern: "bubbles" },
+      "BOUNDARY SETTING": { className: "", pattern: "stop" },
+      "MILDLY HOSTILE WISDOM": { className: "", pattern: "spark" }
+    };
+
+    const card = document.getElementById("affirmationCard");
+    const category = document.getElementById("category");
+    const affirmation = document.getElementById("affirmation");
+    const cardNumber = document.getElementById("cardNumber");
+    const remaining = document.getElementById("remaining");
+    const pattern = document.getElementById("pattern");
+    const selectButton = document.getElementById("selectButton");
+
+    let pool = [];
+    let lastIndex = -1;
+
+    function shuffledIndices() {
+      const indices = affirmations.map((_, index) => index);
+      for (let i = indices.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [indices[i], indices[j]] = [indices[j], indices[i]];
+      }
+      if (indices.length > 1 && indices[indices.length - 1] === lastIndex) {
+        [indices[0], indices[indices.length - 1]] = [indices[indices.length - 1], indices[0]];
+      }
+      return indices;
+    }
+
+    function textSizeClass(length) {
+      if (length > 370) return "micro";
+      if (length > 285) return "xcompact";
+      if (length > 205) return "compact";
+      return "";
+    }
+
+    function showRandomAffirmation() {
+      if (pool.length === 0) pool = shuffledIndices();
+
+      const index = pool.pop();
+      const item = affirmations[index];
+      const config = categoryConfig[item.category];
+      const palette = index % 4;
+      const sizeClass = textSizeClass(item.text.length);
+
+      card.className = ["card", config.className || ("palette-" + palette), sizeClass].filter(Boolean).join(" ");
+      pattern.className = "pattern pattern-" + config.pattern;
+      category.textContent = item.category;
+      affirmation.textContent = item.text;
+      cardNumber.textContent = "Set " + item.set + " / Card " + String(item.number).padStart(2, "0");
+
+      const seen = affirmations.length - pool.length;
+      remaining.textContent = pool.length
+        ? seen + " selected • " + pool.length + " unseen card" + (pool.length === 1 ? "" : "s") + " remaining"
+        : "Full deck complete. The next selection reshuffles all 88 cards.";
+
+      card.classList.remove("reveal");
+      void card.offsetWidth;
+      card.classList.add("reveal");
+      lastIndex = index;
+    }
+
+    selectButton.addEventListener("click", showRandomAffirmation);
+  </script>
+</body>
+</html>
