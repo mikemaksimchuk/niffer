@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Wedge of cheese</title>
+  <desc id="desc">A golden wedge of cheese with holes and a brown rind</desc>
+  <path d="M7 48 48 13l9 35H7Z" fill="#ffb612" stroke="#0d2a20" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M7 48h50v8H7z" fill="#e79a00" stroke="#0d2a20" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="32" cy="34" r="4" fill="#d89000"/>
+  <circle cx="44" cy="27" r="3" fill="#d89000"/>
+  <circle cx="45" cy="42" r="3" fill="#d89000"/>
+</svg>
