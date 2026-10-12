@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0D2A20">
-  <meta name="description" content="Jen's randomized deck of 424 cheese-fueled daily affirmations.">
+  <meta name="description" content="424 cheese-fueled affirmations with personal, non-repeating decks.">
   <title>Jen's Daily Affirmations</title>
   <style>
     :root {
@@ -310,6 +310,31 @@
       .card { min-height: 455px; }
       .card-top { width: calc(100% - 70px); }
     }
+
+    /* Refreshed controls, gentle depth, and fully responsive layout */
+    .app { width: min(940px, 100%); gap: 23px; padding-top: clamp(22px,4vw,45px); padding-bottom: 45px; }
+    .masthead { align-items: center; }
+    .deck-count { border-radius: 99px; padding: 10px 15px; border: 1px solid rgba(255,182,18,.3); background: rgba(255,182,18,.07); }
+    .card { border-radius: 18px; box-shadow: 0 22px 60px rgba(0,0,0,.24); }
+    .controls { width: 100%; gap: 17px; }
+    .control-panel { width: 100%; display: grid; grid-template-columns: .83fr 1.4fr 1.25fr; gap: 12px; padding: 18px; border: 1px solid rgba(255,255,255,.13); background: rgba(255,255,255,.055); border-radius: 16px; backdrop-filter: blur(8px); }
+    .control-field { min-width: 0; display: grid; gap: 9px; }
+    .control-field label { font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .095em; color: rgba(255,255,255,.79); }
+    .control-field select { width: 100%; min-width: 0; padding: 13px 38px 13px 13px; border: 1px solid rgba(255,255,255,.2); border-radius: 10px; background: #1b3c30; color: #fffdf7; font: 700 .91rem var(--ui-font); cursor: pointer; }
+    .control-field select:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+    #selectButton { width: min(100%,430px); border-radius: 10px; letter-spacing: .035em; }
+    #selectButton:disabled { opacity: .5; cursor: not-allowed; box-shadow: none; transform: none; }
+    .progress-section { width: 100%; max-width: 650px; padding: 2px 8px; text-align: center; }
+    .progress-label { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 9px; text-align: left; font-size: .81rem; color: rgba(255,255,255,.83); }
+    .progress-label strong { color: var(--gold); font-variant-numeric: tabular-nums; }
+    .progress-track { width: 100%; height: 9px; overflow: hidden; background: rgba(255,255,255,.16); border-radius: 999px; }
+    .progress-fill { width: 0%; height: 100%; background: linear-gradient(90deg,#e79a00,#ffcf60); border-radius: inherit; transition: width .3s ease; }
+    .remaining { margin-top: 11px; font-size: .81rem; line-height: 1.5; }
+    button.reset-link { min-width: 0; min-height: 0; margin-top: 10px; padding: 9px 14px; border: 1px solid rgba(255,255,255,.18); border-radius: 8px; box-shadow: none; background: transparent; color: rgba(255,255,255,.65); text-transform: none; letter-spacing: 0; font-size: .76rem; font-weight: 600; }
+    button.reset-link:hover { box-shadow: none; background: rgba(255,255,255,.07); color: white; transform: none; }
+    @media (max-width: 680px) { .control-panel { grid-template-columns: 1fr 1fr; } .control-field:last-child { grid-column: 1 / -1; } }
+    @media (max-width: 430px) { .control-panel { grid-template-columns: 1fr; } .control-field:last-child { grid-column: auto; } .card { border-radius: 13px; } }
+    @media (prefers-reduced-motion: reduce) { .progress-fill, button { transition: none; } }
   </style>
 </head>
 <body>
@@ -317,7 +342,7 @@
     <header class="masthead">
       <div>
         <p class="eyebrow">Cheese-Fueled Resilience</p>
-        <h1>Jen's Daily<br>Affirmations</h1>
+        <h1>Daily<br>Affirmations</h1>
       </div>
       <div class="deck-count" aria-label="424 affirmation cards">424-card deck</div>
     </header>
@@ -342,7 +367,7 @@
       </svg>
 
       <div class="card-top">
-        <div class="card-kicker">Jen's Daily Affirmation</div>
+        <div class="card-kicker"><span id="viewerCardLabel">Jen's Daily Affirmation</span></div>
         <div class="category" id="category">Ready When You Are</div>
       </div>
 
@@ -357,8 +382,27 @@
     </article>
 
     <section class="controls" aria-label="Affirmation controls">
-      <button id="selectButton" type="button">Select Affirmation</button>
-      <p class="remaining" id="remaining">Every card will appear once before the deck repeats.</p>
+      <div class="control-panel">
+        <div class="control-field">
+          <label for="viewerSelect">Who's reading?</label>
+          <select id="viewerSelect"><option value="Jen">Jen</option><option value="Mike">Mike</option></select>
+        </div>
+        <div class="control-field">
+          <label for="categorySelect">Category</label>
+          <select id="categorySelect"><option value="all">All categories</option></select>
+        </div>
+        <div class="control-field">
+          <label for="orderSelect">Selection order</label>
+          <select id="orderSelect"><option value="random">Surprise me · Random</option><option value="ordered">In order · Card number</option></select>
+        </div>
+      </div>
+      <button id="selectButton" type="button">Draw an affirmation <span aria-hidden="true">↗</span></button>
+      <div class="progress-section" aria-label="Deck progress">
+        <div class="progress-label"><span id="progressTitle">Jen’s deck progress</span><strong id="progressCount">0 / 424</strong></div>
+        <div class="progress-track" role="progressbar" aria-label="Cards seen" aria-valuemin="0" aria-valuemax="424" aria-valuenow="0" id="progressTrack"><div class="progress-fill" id="progressFill"></div></div>
+        <p class="remaining" id="remaining">Each viewer has their own deck. Cards will not repeat until the full deck is complete.</p>
+        <button class="reset-link" id="resetButton" type="button">Reset this viewer’s progress</button>
+      </div>
     </section>
 
     <noscript><div class="noscript">JavaScript must be enabled to select an affirmation.</div></noscript>
@@ -2943,56 +2987,134 @@
     const remaining = document.getElementById("remaining");
     const pattern = document.getElementById("pattern");
     const selectButton = document.getElementById("selectButton");
+    const viewerSelect = document.getElementById("viewerSelect");
+    const categorySelect = document.getElementById("categorySelect");
+    const orderSelect = document.getElementById("orderSelect");
+    const resetButton = document.getElementById("resetButton");
+    const progressTitle = document.getElementById("progressTitle");
+    const progressCount = document.getElementById("progressCount");
+    const progressTrack = document.getElementById("progressTrack");
+    const progressFill = document.getElementById("progressFill");
+    const viewerCardLabel = document.getElementById("viewerCardLabel");
 
-    let pool = [];
-    let lastIndex = -1;
+    // Cards retain their original ID (set + number), even when displayed in a different order.
+    const cardId = item => item.set + ":" + item.number;
+    const allIds = new Set(affirmations.map(cardId));
+    const storageKey = "affirmation-deck-progress-v2";
+    const categories = [...new Set(affirmations.map(item => item.category))].sort((a,b) => a.localeCompare(b));
+    categories.forEach(name => {
+      const option = document.createElement("option");
+      option.value = name;
+      option.textContent = name;
+      categorySelect.append(option);
+    });
 
-    function shuffledIndices() {
-      const indices = affirmations.map((_, index) => index);
-      for (let i = indices.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [indices[i], indices[j]] = [indices[j], indices[i]];
-      }
-      if (indices.length > 1 && indices[indices.length - 1] === lastIndex) {
-        [indices[0], indices[indices.length - 1]] = [indices[indices.length - 1], indices[0]];
-      }
-      return indices;
+    function loadProgress() {
+      try {
+        const stored = JSON.parse(localStorage.getItem(storageKey) || "{}");
+        const clean = {};
+        for (const viewer of ["Jen", "Mike"]) {
+          const record = stored[viewer] || {};
+          clean[viewer] = {
+            seen: Array.isArray(record.seen) ? [...new Set(record.seen.filter(id => allIds.has(id)))] : [],
+            last: allIds.has(record.last) ? record.last : null,
+            cycles: Number.isSafeInteger(record.cycles) && record.cycles >= 0 ? record.cycles : 0
+          };
+        }
+        return clean;
+      } catch (_) { return { Jen: {seen: [], last: null, cycles: 0}, Mike: {seen: [], last: null, cycles: 0} }; }
     }
-
+    const progress = loadProgress();
+    function saveProgress() {
+      try { localStorage.setItem(storageKey, JSON.stringify(progress)); }
+      catch (_) { remaining.textContent = "This browser cannot save progress. Your history may reset when you close this page."; }
+    }
     function textSizeClass(length) {
       if (length > 370) return "micro";
       if (length > 285) return "xcompact";
       if (length > 205) return "compact";
       return "";
     }
-
-    function showRandomAffirmation() {
-      if (pool.length === 0) pool = shuffledIndices();
-
-      const index = pool.pop();
-      const item = affirmations[index];
-      const config = categoryConfig[item.category];
-      const palette = index % 4;
-      const sizeClass = textSizeClass(item.text.length);
-
-      card.className = ["card", config.className || ("palette-" + palette), sizeClass].filter(Boolean).join(" ");
+    function scopeCards() {
+      return categorySelect.value === "all"
+        ? affirmations
+        : affirmations.filter(item => item.category === categorySelect.value);
+    }
+    function updateStatus(message) {
+      const viewer = viewerSelect.value;
+      const record = progress[viewer];
+      const seenSet = new Set(record.seen);
+      const eligible = scopeCards();
+      const available = eligible.filter(item => !seenSet.has(cardId(item)));
+      viewerCardLabel.textContent = viewer + "'s Daily Affirmation";
+      progressTitle.textContent = viewer + "’s deck progress";
+      progressCount.textContent = record.seen.length + " / " + affirmations.length;
+      progressTrack.setAttribute("aria-valuemax", String(affirmations.length));
+      progressTrack.setAttribute("aria-valuenow", String(record.seen.length));
+      progressFill.style.width = ((record.seen.length / affirmations.length) * 100) + "%";
+      selectButton.disabled = available.length === 0 && record.seen.length < affirmations.length;
+      selectButton.textContent = record.seen.length === affirmations.length ? "Start a fresh deck ↗" : "Draw an affirmation ↗";
+      if (message) remaining.textContent = message;
+      else if (record.seen.length === affirmations.length) remaining.textContent = "All " + affirmations.length + " viewed! Your next draw begins a fresh deck.";
+      else if (available.length === 0) remaining.textContent = "All cards in this category have been viewed. Choose another category (or All categories) to finish the deck.";
+      else remaining.textContent = available.length + " unseen in this selection · " + (affirmations.length - record.seen.length) + " unseen across " + viewer + "’s full deck.";
+    }
+    function drawCard() {
+      const viewer = viewerSelect.value;
+      const record = progress[viewer];
+      // Only restart after every card in the ENTIRE deck has been seen.
+      if (record.seen.length === affirmations.length) {
+        record.seen = [];
+        record.cycles++;
+      }
+      const seen = new Set(record.seen);
+      const available = scopeCards().filter(item => !seen.has(cardId(item)));
+      if (available.length === 0) { updateStatus(); return; }
+      let item;
+      if (orderSelect.value === "ordered") {
+        item = available.slice().sort((a,b) => a.number - b.number || a.set.localeCompare(b.set))[0];
+      } else {
+        let choices = available;
+        // Avoid showing the exact same card twice at a cycle boundary if alternatives exist.
+        if (choices.length > 1) choices = choices.filter(candidate => cardId(candidate) !== record.last);
+        item = choices[Math.floor(Math.random() * choices.length)];
+      }
+      record.seen.push(cardId(item));
+      record.last = cardId(item);
+      saveProgress();
+      const index = affirmations.indexOf(item);
+      const config = categoryConfig[item.category] || { className: "", pattern: "spark" };
+      card.className = ["card", config.className || "palette-" + (index % 4), textSizeClass(item.text.length)].filter(Boolean).join(" ");
       pattern.className = "pattern pattern-" + config.pattern;
       category.textContent = item.category;
       affirmation.textContent = item.text;
-      cardNumber.textContent = "Set " + item.set + " / Card " + String(item.number).padStart(2, "0");
-
-      const seen = affirmations.length - pool.length;
-      remaining.textContent = pool.length
-        ? seen + " selected • " + pool.length + " unseen card" + (pool.length === 1 ? "" : "s") + " remaining"
-        : "Full deck complete. The next selection reshuffles all 424 cards.";
-
+      cardNumber.textContent = "Set " + item.set + " / Card " + String(item.number).padStart(2,"0");
       card.classList.remove("reveal");
       void card.offsetWidth;
       card.classList.add("reveal");
-      lastIndex = index;
+      updateStatus();
     }
-
-    selectButton.addEventListener("click", showRandomAffirmation);
+    selectButton.addEventListener("click", drawCard);
+    viewerSelect.addEventListener("change", () => {
+      card.className = "card palette-2";
+      category.textContent = "Ready When You Are";
+      affirmation.textContent = "A fresh perspective, coming right up.";
+      cardNumber.textContent = "Choose a card to begin";
+      updateStatus();
+    });
+    categorySelect.addEventListener("change", () => updateStatus());
+    orderSelect.addEventListener("change", () => updateStatus());
+    resetButton.addEventListener("click", () => {
+      const viewer = viewerSelect.value;
+      if (!window.confirm("Reset " + viewer + "’s viewed cards? This cannot be undone.")) return;
+      progress[viewer] = {seen: [], last: null, cycles: 0};
+      saveProgress();
+      category.textContent = "Ready When You Are";
+      affirmation.textContent = "Deck reset. Pick your next affirmation.";
+      cardNumber.textContent = "Fresh deck";
+      updateStatus();
+    });
+    updateStatus();
   </script>
 </body>
 </html>
